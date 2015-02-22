@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>lottery</title>
+
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
+
+
+    <script type="text/javascript" src="bower_components/angular-strap/dist/angular-strap.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <script type="text/javascript" scr="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+    <script type="text/javascript" src="js/app.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/app.css"></link>
+</head>
+
+<body ng-app="app" ng-controller="ctl">
+    <div class="container">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <!-- We use the fluid option here to avoid overriding the fixed width of a normal container within the narrow content columns. -->
+            <div class="container-fluid">
+                <div class="navbar-header">
+
+                    <a class="navbar-brand" href="#">lottery</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-7">
+                    <ul class="nav navbar-nav  navbar-right">
+                        <li class="active"><a href="#">彩球 ( 49 顆 )</a>
+                        </li>
+                        <li><a href="#">38 顆 (建購中)</a>
+                        </li>
+                        <li><a href="#">建購中</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+
+        <div class="row">
+
+            <div class="col-xs-9">
+                <form class="form-inline">
+                    <div class="form-group">
+
+                        <label>
+                            輸入號碼：
+                        </label>
+                        <input type="text" ng-model="number" min="1" max="49" class="form-control" style="width:200px">
+                        <button class="btn btn-primary" ng-click="next()">下一組 ( Enter )</button>
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="col-xs-3">
+
+                
+                <button class="btn pull-right" ng-click="clear()">清除排名</button>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+
+            <div class="col-xs-9">
+
+
+
+                <div>
+                    <div ng-repeat="item in set " style="display: inline;">
+
+                        <div class="numberCircleBig" ng-click="addToArray($index+1)">
+
+                            {{ pad(item.key, 2)}}
+
+                        </div>
+
+                        <div ng-if="(($index+1) % 10) == 0" class="new">
+                        </div>
+                    </div>
+                </div>
+                <div class="new"></div>
+                <div class="row ">
+
+                    <div class="col-xs-12 buttom">
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-repeat="s in setGroup">
+                                [
+                                <span ng-repeat="item in s track by $index">
+                                    {{item}},
+                                </span> ]
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="col-xs-3 right well">
+
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="s in set | filter:{count:'!0'} |  orderBy:'count':true">
+
+                        <div class="numberCircle">{{s.key}}</div>
+                        <div class="count">
+
+                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+
+                            <!-- pretend an enclosing class has big font size -->
+                            <span class="label label-success label-as-badge">{{s.count}}</span>
+
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+
+                        </div>
+
+
+                    </li>
+                </ul>
+
+
+                <div class="new"></div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="new"></div>
+
+
+
+    </div>
+</body>
+
+</html>
