@@ -60,7 +60,7 @@
             </div>
             <div class="col-xs-3">
 
-                
+
                 <button class="btn pull-right" ng-click="clear()">清除排名</button>
             </div>
         </div>
@@ -90,9 +90,14 @@
                     <div class="col-xs-12 buttom">
                         <ul class="list-group">
                             <li class="list-group-item" ng-repeat="s in setGroup">
-                                [
+
+                                <span class="glyphicon glyphicon-remove danger" style="color:red" ng-click="deleteSet($index)">
+                                    
+                                </span> [
                                 <span ng-repeat="item in s track by $index">
-                                    {{item}},
+                                    <span ng-class="{'TopSet': isTop(item)}">{{item}},
+                                    </span>
+
                                 </span> ]
                             </li>
 
@@ -106,17 +111,14 @@
             <div class="col-xs-3 right well">
 
                 <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="s in set | filter:{count:'!0'} |  orderBy:'count':true">
+                    <li class="list-group-item" ng-repeat="s in set |  orderBy:'count':true" ng-if="s.count > 0">
 
-                        <div class="numberCircle">{{s.key}}</div>
+                        <div class="numberCircle" ng-class="{'TopCount': $index < 5}">{{s.key}}</div>
+
                         <div class="count">
-
-                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-
-                            <!-- pretend an enclosing class has big font size -->
-                            <span class="label label-success label-as-badge">{{s.count}}</span>
-
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            <span class="badge">
+                             {{s.count}}             
+                               </span>
 
                         </div>
 
